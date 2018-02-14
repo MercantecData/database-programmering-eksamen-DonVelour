@@ -2,9 +2,15 @@
 session_start();
 $loggedIn = isset($_SESSION['userID']);
 if($loggedIn) {
-	id = $SESSION['userID'];
+	$id = $_SESSION['userID'];
 	$conn = mysqli_connect("localhost", "root", "", "databaseexam");
-	$sql = SELECT id, imageURL FROM images WHERE owner = id;
+	$sql = "SELECT `id`, `imageURL` FROM `images` WHERE `owner` = '".$id."' ";
+	$imageresult = $conn->query($sql);
+}
+elseif(!$loggedIn)
+{
+	$conn = mysqli_connect("localhost", "root", "", "databaseexam");
+	$sql = "SELECT images.imageURL, users.username FROM users INNER JOIN images ON images.owner = users.id";
 	$imageresult = $conn->query($sql);
 }
 ?>
@@ -66,6 +72,11 @@ if($loggedIn) {
 			margin: 1%;
 		}
 
+		.Images {
+			max-width: 75%;
+			margin: 1%;
+		}
+
 	</style>
 </head>
 <body>
@@ -82,6 +93,7 @@ if($loggedIn) {
 				Password<input type="password" name="password">
 				<input type="submit" name="submit" value="login">
 			</form>
+			<a href="create.php"><input type="submit" name="submit" value="opret"></a>
 			<?php else:?>
 			<form method="POST" action="logout.php">
 				<input type="submit" name="submit" value="logout">
@@ -91,16 +103,35 @@ if($loggedIn) {
 
 		<div class="content">
 			<h1>Velkommen Til!</h1>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus feugiat quis purus ut bibendum. Mauris sit amet lacinia arcu. Vivamus fringilla magna id augue luctus interdum. 
-
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus feugiat quis purus ut bibendum. Mauris sit amet lacinia arcu. Vivamus fringilla magna id augue luctus interdum.
 			<?php 
-			if$imageresult) {
+			if($loggedIn) {
 				echo "<h2>Dine Billeder</h2>";
 				while($row = $imageresult->fetch_assoc()) {
-					$url = $row["imageUrl"];
+					$url = $row["imageURL"];
 					echo "<img class = 'myImage' src='$url'>";
 				}
-			} 
+			}
+			elseif(!$loggedIn)
+			{
+				$array = array();
+				echo "<h2>Billeder</h2>";
+				while($row = $imageresult->fetch_assoc()) 
+				{
+					echo "(user:) ";
+					echo $row['username'];
+					$url = $row["imageURL"];
+					echo "<a href='largepic.php'><img class = 'Images' src='$url'></a>";
+					echo "<br>";
+
+					// $_SESSION['image'] = $url;
+					// echo $img;
+
+					// $array = $_SESSION['image'];
+					
+					
+				}
+			}	
 			?>
 			<div class="myTextArea"><p>
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus feugiat quis purus ut bibendum. Mauris sit amet lacinia arcu. Vivamus fringilla magna id augue luctus interdum. Aliquam urna dui, efficitur at imperdiet sed, ultricies eu tellus. Pellentesque iaculis sagittis nisi id ultrices. Phasellus pharetra diam ac ex feugiat dapibus eget a diam. Fusce ullamcorper nunc quis massa ornare dapibus. Nunc efficitur nunc ut consectetur condimentum. Maecenas faucibus quis justo nec venenatis. Donec at placerat magna. Donec a lobortis eros. Aliquam erat volutpat. Proin gravida orci ut semper aliquet. Donec vitae purus commodo, accumsan purus sed, congue neque. Nullam egestas, augue sed euismod mollis, leo risus elementum nisi, non venenatis felis justo ac libero.

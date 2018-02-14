@@ -9,7 +9,7 @@ Derefter skal i kigge på at implementere disse ekstra features:
  - Ordentlig Error Handling.
  - En feature til at slette billeder fra databasen
  - Password Hashing på både almindlige brugere og admin
- - En mulighed for at klikke på et billede på forsiden, og derefter åbne en side hvor det ses i fuld størrelse.
+ - En mulighed for at klikke på et billede på forsiden, og derefter åbne en side hvor det ses i fuld størrelse. 
  - På admin siden er der links til at skulle slette brugere. Disse skal komme til at virke så de sletter folk fra databasen.
 
 Hvis i undervejs finder ting i mener kunne laves bedre må i meget gerne lave det også. I har lov til, og forventes af jer at i udvider databasen undervejs i jeres arbejde for at løse jeres opgave.
@@ -17,3 +17,6 @@ Hvis i undervejs finder ting i mener kunne laves bedre må i meget gerne lave de
 Til aflevering SKAL i huske at tilføje en .sql fil med den database i ender med at have. Uden denne er afleveringen desværre ugyldig. Derudover SKAL i tagge det commit som er jeres afleverings commit.
 
 God Arbejdslyst!!!
+
+
+Andreas Zacho

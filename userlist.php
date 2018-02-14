@@ -1,6 +1,6 @@
 <?php
-	$conn = mysqli_connect("localhost", "root", "", "DatabaseExam");
-	$sql = "SELECT id FROM users WHERE 1";
+	$conn = mysqli_connect("localhost", "root", "", "databaseexam");
+	$sql = "SELECT `id`, `name` FROM `users` WHERE 1";
 	$result = $conn->query($sql);
 ?>
 
@@ -14,8 +14,12 @@
 	<h1>Users:</h1>
 	<?php 
 	while($row = $result->fetch_assoc()){
-		echo $row["name"];
-		echo "   <a href='?'>delete</a>";
+		echo "<form action='userlist.php' method='POST'>";
+		$name = $row["name"];
+		echo $name;
+		echo "   <a href='d.php' name='delete' >delete</a>";
+		echo "<br>";
+		echo "</form>";
 	}
 	?>
 </body>
